@@ -36,9 +36,11 @@
 # Скільки днів у високосному році?
 # У високосному році 366 днів.
 def leap_year(year):
-    if year % 4 ==0:
+    if year % 4 == 0:
         if year % 100 != 0:
             return print('Leap year.')
+        elif year % 400 == 0:
+            return print('Leap year.')            
     return print('Not leap year.')
 
 print('write your year')

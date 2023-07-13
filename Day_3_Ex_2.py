@@ -43,7 +43,8 @@ def leap_year(year):
             return print('Leap year.')            
     return print('Not leap year.')
 
-print('write your year')
-year = int(input())
-
-leap_year(year)
+index = 0
+for year in [2000, 2004, 2100, 2200, 2400, 1700, 1800, 1900, 2021, 2024]:
+    index +=1
+    print(index, end='. ')
+    leap_year(year)

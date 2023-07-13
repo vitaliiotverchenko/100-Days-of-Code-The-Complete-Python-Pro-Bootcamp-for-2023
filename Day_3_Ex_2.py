@@ -35,16 +35,20 @@
 # В даному переліку 2100 рік не буде високосним, адже він кратний 100 і не ділиться на 400.
 # Скільки днів у високосному році?
 # У високосному році 366 днів.
-def leap_year(year):
+def check_leap_year(year):
     if year % 4 == 0:
-        if year % 100 != 0:
-            return print('Leap year.')
-        elif year % 400 == 0:
-            return print('Leap year.')            
-    return print('Not leap year.')
+        if year % 100 == 0:
+            if year % 400 == 0:
+                return "Leap"
+            else:
+                return "Not leap"
+        else:
+            return "Leap"
+    else:
+        return "Not leap"
 
 index = 0
 for year in [2000, 2004, 2100, 2200, 2400, 1700, 1800, 1900, 2021, 2024]:
     index +=1
-    print(index, end='. ')
-    leap_year(year)
+    result = check_leap_year(year)
+    print(index, result)

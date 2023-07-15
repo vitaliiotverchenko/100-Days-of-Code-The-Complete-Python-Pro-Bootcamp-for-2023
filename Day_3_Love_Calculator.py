@@ -61,14 +61,14 @@ def love_calculator(name1, name2) -> str:
         singles += amount
     percent = int(str(dozens) + str(singles))
     if 40 < percent < 50:
-        return f"Your score is {percent}%, you go together like coke and mentos."
-    elif percent < 10 or percent > 90:
         return f"Your score is {percent}%, you are alright together."
+    elif percent < 10 or percent > 90:
+        return f"Your score is {percent}%, you go together like coke and mentos."
     else:
         return f"Your score is {percent}%."
 
 
 name1 = input('write your name: ')
-name2 = input('write another name: ')
+name2 = input("write your sweetheart's name: ")
 answer = love_calculator(name1, name2)
 print(answer)

@@ -49,16 +49,10 @@
 # Example Output 2
 # Your score is 73.
 
-def love_calculator(name1, name2) -> str:
-    dozens = 0
-    singles = 0
+def love_calculator(name1: str, name2: str) -> str:
     string = (name1 + name2).lower()
-    for letter in 'true':
-        amount = string.count(letter)
-        dozens += amount
-    for letter in 'love':
-        amount = string.count(letter)
-        singles += amount
+    dozens = sum([string.count(letter) for letter in 'true'])
+    singles = sum([string.count(letter) for letter in 'love'])
     percent = int(str(dozens) + str(singles))
     if 40 < percent < 50:
         return f"Your score is {percent}%, you are alright together."
@@ -72,3 +66,4 @@ name1 = input('write your name: ')
 name2 = input("write your sweetheart's name: ")
 answer = love_calculator(name1, name2)
 print(answer)
+

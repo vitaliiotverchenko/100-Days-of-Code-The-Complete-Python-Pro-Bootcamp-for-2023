@@ -62,17 +62,16 @@ hangman_art = {
 }
 
 
-
 def one_more_time():
     while True:
         play_again = input("Do you want to play again? (yes/no): ").lower()
         if play_again == "yes":
-            # Якщо гравець хоче грати знову, викликаємо функцію знову.
             return hangman()
         elif play_again == "no":
             return "Goodbye! Thanks for playing."
         else:
             print("Invalid input. Please enter 'yes' or 'no'.")
+
 
 def hangman():
     attempts = 6
@@ -92,25 +91,14 @@ def hangman():
                 return False
         return True
 
-    # написати функцію щоб перевіряла, що користувач вводить лише одну букву + щоб це не було символом (використай свою ж готову функцію )
-    def check_for_one_letter(prompt:str):
+    def check_for_one_letter(prompt: str):
         while True:
             letter = input(prompt).lower()
             if len(letter) == 1 and letter.isalpha():
                 return letter
             else:
-                print('You should type only one letter, and no symbols! Please, try again!')
-
-    # def one_more_time():
-    #     while True:
-    #         play_again = input("Do you want to play again? (yes/no): ").lower()
-    #         if play_again == "yes":
-    #             # Якщо гравець хоче грати знову, викликаємо функцію знову.
-    #             hangman()
-    #         elif play_again == "no":
-    #             return "Goodbye! Thanks for playing."
-    #         else:
-    #             print("Invalid input. Please enter 'yes' or 'no'.")
+                print(
+                    'You should type only one letter, and no symbols! Please, try again!')
 
     print("\nWelcome to \n ")
     print(''' _                                             
@@ -129,35 +117,31 @@ def hangman():
         secret_word = input('Type your own word:\n')
         check = check_for_forbidden_chars(secret_word)
         while check == False:
-            secret_word = input("You shouldn't use symbols! Try again!: \n")
+            secret_word = input(
+                "You shouldn't use symbols or numbers! Try again!: \n")
             check = check_for_forbidden_chars(secret_word)
 
-
-    guessed_letters = set()
+    guessed_letters = []
     while attempts > 0:
 
-        display_word = ""
-        for letter in secret_word:
-            if letter in guessed_letters:
-                display_word += letter
-            else:
-                display_word += "_"
+        display_word = "".join(
+            letter if letter in guessed_letters else "_" for letter in secret_word)
 
         if "_" not in display_word:
-            print(f"Congratulations! You win! \n The word was: {secret_word}")
+            print(f"Congratulations! You win!\nThe word was: {secret_word}")
             return one_more_time()
 
         print(f"{hangman_art[attempts]}")
         print(f'The secret word is : {display_word}')
-        print('Used letters: ', *list(guessed_letters))
+        print("Used letters:", ", ".join(guessed_letters))
         print(f"You have {attempts} attempts")
         guess = check_for_one_letter("Type a letter: \n")
 
         if guess in guessed_letters:
-            print("\n\n\nYou've already typed this letter. Try another one. \n")
+            print("You've already typed this letter. Try another one. \n")
             continue
 
-        guessed_letters.add(guess)
+        guessed_letters.append(guess)
 
         if guess not in secret_word:
             attempts -= 1
@@ -167,4 +151,5 @@ def hangman():
     return one_more_time()
 
 
-hangman()
+if __name__ == "__main__":
+    hangman()

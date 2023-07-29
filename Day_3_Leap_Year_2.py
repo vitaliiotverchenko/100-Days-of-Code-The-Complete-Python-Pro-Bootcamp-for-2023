@@ -48,16 +48,32 @@ def check_leap_year(year):
     if year % 4 == 0:
         if year % 100 == 0:
             if year % 400 == 0:
-                return "Leap"
+                return True
             else:
-                return "Not leap"
+                return False
         else:
-            return "Leap"
+            return True
     else:
-        return "Not leap"
+        return False
 
-index = 0
-for year in [2000, 2004, 2100, 2200, 2400, 1700, 1800, 1900, 2021, 2024]:
-    index +=1
-    result = check_leap_year(year)
-    print(index, result)
+
+def days_in_month(year=2022, month=2):
+  """
+  Returns the number of days in a given month for a given year.
+
+  Parameters:
+    year (int): The year for which the number of days is calculated. Default is 2022.
+    month (int): The month for which the number of days is calculated. Default is 2.
+
+  Returns:
+    int: The number of days in the given month for the given year.
+  """
+  if month < 1 or month > 12:
+      return 'Invalid month'
+  month_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  if check_leap_year(year) and month == 2:
+    return 29
+  return month_days[month - 1]
+
+    
+print(days_in_month(2024, 2))

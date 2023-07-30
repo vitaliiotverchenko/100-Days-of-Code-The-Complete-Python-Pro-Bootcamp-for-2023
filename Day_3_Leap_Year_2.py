@@ -76,4 +76,3 @@ def days_in_month(year=2022, month=2):
   return month_days[month - 1]
 
     
-print(days_in_month(2024, 2))

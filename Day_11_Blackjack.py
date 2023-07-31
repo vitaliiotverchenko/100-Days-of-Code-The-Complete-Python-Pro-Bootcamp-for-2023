@@ -1,5 +1,6 @@
 import random
 
+
 class Blackjack:
     def __init__(self):
         self.deck = self.generate_deck()
@@ -8,17 +9,53 @@ class Blackjack:
         self.game_over = False
 
     def generate_deck(self):
-        values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+        """
+        Generates a deck of playing cards.
+
+        Returns:
+            list: A list of dictionaries representing each card in the deck. Each dictionary has two keys: 'value' (a string representing the card's value) and 'suit' (a string representing the card's suit).
+        """
+        values = ['2', '3', '4', '5', '6', '7',
+                  '8', '9', '10', 'J', 'Q', 'K', 'A']
         suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
-        deck = [{'value': value, 'suit': suit} for value in values for suit in suits]
+        deck = [{'value': value, 'suit': suit}
+                for value in values for suit in suits]
         random.shuffle(deck)
         return deck
 
     def deal_card(self):
+        """
+        Pop a card from the deck.
+
+        Returns:
+            The popped card.
+        """
         return self.deck.pop()
 
     def calculate_hand_value(self, hand):
-        values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10, 'A': 11}
+        """
+        Calculates the value of a hand in a card game.
+
+        Parameters:
+            hand (list): A list of dictionaries representing the cards in the hand.
+                Each dictionary contains a 'value' key with the value of the card.
+
+        Returns:
+            int: The total value of the hand.
+
+        Algorithm:
+            1. Create a dictionary 'values' to store the values of each card.
+            2. Initialize 'hand_value' as 0.
+            3. Iterate through each 'card' in 'hand':
+                a. Add the value of the card from 'values' to 'hand_value'.
+            4. Count the number of aces in the hand and store it in 'num_aces'.
+            5. While 'hand_value' is greater than 21 and 'num_aces' is greater than 0:
+                a. Subtract 10 from 'hand_value'.
+                b. Decrease 'num_aces' by 1.
+            6. Return 'hand_value'.
+        """
+        values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
+                  '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10, 'A': 11}
         hand_value = sum([values[card['value']] for card in hand])
         num_aces = sum(1 for card in hand if card['value'] == 'A')
 
@@ -29,18 +66,64 @@ class Blackjack:
         return hand_value
 
     def print_hand(self, hand, player_name):
+        """
+        Prints the given hand of cards for a player.
+
+        Args:
+            hand (List[Dict[str, Any]]): A list of dictionaries representing the cards in the hand. Each dictionary has two keys: 'value' (str) and 'suit' (str).
+            player_name (str): The name of the player.
+
+        Returns:
+            None
+        """
         print(f"{player_name}'s hand:")
         for card in hand:
             print(f"{card['value']} of {card['suit']}")
         print(f"Total value: {self.calculate_hand_value(hand)}\n")
 
     def check_blackjack(self, hand):
+        """
+        Checks if the given hand is a blackjack hand.
+
+        Parameters:
+            hand (list): A list of cards representing the hand.
+
+        Returns:
+            bool: True if the hand is a blackjack hand, False otherwise.
+        """
         return self.calculate_hand_value(hand) == 21
 
     def check_bust(self, hand):
+        """
+        Check if the hand value is greater than 21.
+
+        Parameters:
+            hand (list): A list of cards representing the hand.
+
+        Returns:
+            bool: True if the hand value is greater than 21, False otherwise.
+        """
         return self.calculate_hand_value(hand) > 21
 
     def play(self):
+        """
+        Plays a game of blackjack.
+
+        The function initializes the game by dealing two cards to both the player and the dealer.
+        It then enters a loop where it displays the player's hand and the dealer's face-up card.
+        If the player has a blackjack, the function prints a message and exits the loop.
+        If the player busts, the function prints a message and exits the loop.
+        If the player chooses to hit, a card is dealt to the player's hand.
+        If the player chooses to stand, the function enters a loop where the dealer continues to 
+        draw cards until their hand value is 17 or higher. The function then compares the hand values
+        of the player and the dealer and determines the outcome of the game (player wins, dealer wins, or draw).
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
         # Initial deal
         for _ in range(2):
             self.player_hand.append(self.deal_card())
@@ -78,6 +161,7 @@ class Blackjack:
                 break
             else:
                 print("Invalid input. Please enter 'hit' or 'stand'.")
+
 
 if __name__ == "__main__":
     game = Blackjack()

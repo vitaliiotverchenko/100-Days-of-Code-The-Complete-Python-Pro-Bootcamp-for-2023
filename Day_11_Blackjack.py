@@ -1,4 +1,4 @@
-import random
+import random, os
 
 
 class Blackjack:
@@ -105,6 +105,27 @@ class Blackjack:
         """
         return self.calculate_hand_value(hand) > 21
 
+    def play_again(self):
+        """
+        Runs the play again loop, allowing the user to choose whether to play another round or exit the game.
+
+        Returns:
+            None
+        """
+        while True:
+            choice = input("Do you want to play again? (yes/no): ").lower()
+            if choice == 'yes':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                self.player_hand.clear()
+                self.dealer_hand.clear()
+                self.deck = self.generate_deck()
+                self.game_over = False
+                self.play()
+            elif choice == 'no':
+                print("Thank you for playing! Goodbye!")
+                break
+            else:
+                print("Invalid input. Please enter 'yes' or 'no'.")
     def play(self):
         """
         Plays a game of blackjack.
@@ -161,8 +182,10 @@ class Blackjack:
                 break
             else:
                 print("Invalid input. Please enter 'hit' or 'stand'.")
+        # self.play_again()
 
 
 if __name__ == "__main__":
     game = Blackjack()
     game.play()
+    game.play_again()

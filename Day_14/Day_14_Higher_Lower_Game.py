@@ -1,7 +1,8 @@
 # The game where user have to guess whom have more followers on Instagram.
 
 
-import random, os
+import random
+import os
 from Day_14_Game_Data import data
 from Day_14_art import logo, vs
 
@@ -30,6 +31,7 @@ class HigherLowerGame:
 
     def clear_terminal(self):
         os.system('cls')  # for Windows systems
+
     def get_user_guess(self):
         print(
             f"Compare A: {self.person1['name']}, {self.person1['description']}, from {self.person1['country']}.")
@@ -68,9 +70,9 @@ class HigherLowerGame:
             self.is_game_over = True
             print(
                 f"\nSorry, that's wrong. Your final score is: {self.player.score}")
-            
 
     def play_game(self):
+        self.clear_terminal
         print(logo)
         print("Welcome to Higher - Lower Game!       ")
         print("--------------------------")

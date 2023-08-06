@@ -1,1 +1,3 @@
-.vscode/.gitignore
+.vscode/
+.gitignore
+testing_area.py

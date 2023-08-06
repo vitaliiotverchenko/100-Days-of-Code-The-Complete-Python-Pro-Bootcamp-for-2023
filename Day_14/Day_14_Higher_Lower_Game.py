@@ -65,9 +65,11 @@ class HigherLowerGame:
 
         if (user_guess == 'a' and a_followers > b_followers) or (user_guess == 'b' and b_followers > a_followers):
             self.player.score += 1
+            self.clear_terminal()
             print(f"Correct! Your current score is: {self.player.score} \n")
         else:
             self.is_game_over = True
+            self.clear_terminal()
             print(
                 f"\nSorry, that's wrong. Your final score is: {self.player.score}")
 
@@ -79,7 +81,6 @@ class HigherLowerGame:
         while not self.is_game_over:
             self.play_round()
             input("Press Enter to continue...")
-            self.clear_terminal()
         self.play_again()
 
 

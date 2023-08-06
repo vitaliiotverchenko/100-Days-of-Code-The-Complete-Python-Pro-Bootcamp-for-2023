@@ -19,10 +19,10 @@ class HigherLowerGame:
         self.person2 = None
 
     def choose_characters(self):
-        if Player().score == 0:
+        if self.player.score == 0:
             self.person1 = random.choice(data)
             self.person2 = random.choice(data)
-        elif Player().score > 0:
+        elif self.player.score > 0:
             self.person1 = self.person2
             self.person2 = random.choice(data)
         while self.person1 == self.person2:
@@ -48,6 +48,7 @@ class HigherLowerGame:
             "Do you want to play again? Type 'y' or 'n': ").lower()
         if play_again in ('y', 'yes', 'yeah', 'yup', 'yep', 'ya'):
             self.is_game_over = False
+            self.player.score = 0
             self.play_game()
         else:
             print("Thanks for playing! See you again!")
@@ -65,9 +66,9 @@ class HigherLowerGame:
             print(f"Correct! Your current score is: {self.player.score} \n")
         else:
             self.is_game_over = True
-            self.player.score = 0
             print(
                 f"\nSorry, that's wrong. Your final score is: {self.player.score}")
+            
 
     def play_game(self):
         print(logo)

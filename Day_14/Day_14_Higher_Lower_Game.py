@@ -60,6 +60,7 @@ class HigherLowerGame:
             print(f"Correct! Your current score is: {self.player.score} \n")
         else:
             self.is_game_over = True
+            self.player.score = 0
             print(
                 f"\nSorry, that's wrong. Your final score is: {self.player.score}")
 
@@ -69,7 +70,8 @@ class HigherLowerGame:
         print("--------------------------")
         while not self.is_game_over:
             self.play_round()
-        play_again = self.play_again()
+        self.play_again()
+
 
 if __name__ == "__main__":
     game = HigherLowerGame()

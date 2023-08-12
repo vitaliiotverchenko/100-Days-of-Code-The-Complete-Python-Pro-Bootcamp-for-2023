@@ -46,10 +46,10 @@ class CoffeeMachine:
     }
 
     RESOURCES = {
-        "water": 5000,
-        "milk": 2500,
-        "coffee": 1000,
-        "chocolate": 1000,
+        "water": 1000,
+        "milk": 500,
+        "coffee": 200,
+        "chocolate": 200,
     }
 
     def display_menu(self):
@@ -79,12 +79,24 @@ class CoffeeMachine:
                 return False
         return True
 
+    def clear_terminal(self):
+        os.system('cls')  # for Windows systems
+        
+
     def process_coins(self):
+        def get_valid_input(prompt):
+            while True:
+                choice = input(prompt).lower()
+                if choice.isdigit():
+                    choice = int(choice)
+                    return choice
+                else:
+                    print('Invalid choice! Please try again.')
         print("Please insert coins.")
-        total = int(input("How many quarters? (0.25$): ")) * 0.25
-        total += int(input("How many dimes? (0.10$): ")) * 0.10
-        total += int(input("How many nickels? (0.05$): ")) * 0.05
-        total += int(input("How many pennies? (0.01$): ")) * 0.01
+        total = get_valid_input("How many quarters? (0.25$): ") * 0.25
+        total += get_valid_input("How many dimes? (0.10$): ") * 0.10
+        total += get_valid_input("How many nickels? (0.05$): ") * 0.05
+        total += get_valid_input("How many pennies? (0.01$): ") * 0.01
         return total
 
     def make_coffee(self, drink):
@@ -101,7 +113,7 @@ class CoffeeMachine:
                 for ingredient, quantity in self.MENU[drink]["ingredients"].items():
                     self.RESOURCES[ingredient] -= quantity
 
-                return f"Here is your {drink}. Enjoy! Here's your change: ${change:.2f}"
+                return f"Here is your {drink} ☕. Enjoy! Here's your change: ${change:.2f}"
         else:
             return "Sorry, not enough resources to make the drink."
 
@@ -112,7 +124,7 @@ class CoffeeMachine:
         print(logo)
         print(self.display_menu())
         while True:
-            choice = input("What would you like?\n: ").lower()
+            choice = input("What would you like? (type 'exit' to stop)\n: ").lower()
             if choice == "report":
                 print(self.report())
             elif choice in CoffeeMachine.MENU.keys():

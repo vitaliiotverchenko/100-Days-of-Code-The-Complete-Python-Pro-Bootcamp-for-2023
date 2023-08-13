@@ -47,9 +47,9 @@ class CoffeeMachine:
     }
 
     RESOURCES = {
-        "water": 1000,
-        "milk": 500,
-        "coffee": 200,
+        "water": 500,
+        "milk": 300,
+        "coffee": 50,
         "chocolate": 200,
     }
 
@@ -87,11 +87,21 @@ class CoffeeMachine:
 
         total = 0
         for coin, value in COIN_VALUES.items():
-            total += int(input(f"How many {coin}? ({value}$): ")) * value
+            total += get_valid_input(f"How many {coin}? ({value}$): ") * value
         return total
 
     def make_coffee(self, drink):
-        if self.check_resources(drink):
+        enough_resources = self.check_resources(drink)
+        if not enough_resources:
+            required_resources = self.MENU[drink]["ingredients"]
+            insufficient_resources = {ingredient: quantity - self.RESOURCES.get(ingredient, 0) for ingredient, quantity in required_resources.items() if self.RESOURCES.get(ingredient, 0) < quantity}
+            resource_info = "\n".join([f"Need {quantity} more {ingredient.capitalize()}" for ingredient, quantity in insufficient_resources.items()])
+            available_drinks = [d for d in CoffeeMachine.MENU if self.check_resources(d)]
+            available_info = ", ".join(available_drinks)
+            if len(available_drinks) < 3:
+                available_info = "No available drinks"
+            return f"Sorry, not enough resources to make {drink}. \n{resource_info}. You can make: {available_info}"
+        else:
             cost = self.MENU[drink]["cost"]
             coins = self.process_coins()
 
@@ -105,11 +115,10 @@ class CoffeeMachine:
                     self.RESOURCES[ingredient] -= quantity
 
                 return f"Here is your {drink} ☕. Enjoy! Here's your change: ${change:.2f}"
-        else:
-            return "Sorry, not enough resources to make the drink."
+
 
     def report(self):
-        return f"\nCurrent resources:\n\nWater: {self.RESOURCES['water']}ml, Milk: {self.RESOURCES['milk']}ml, Coffee: {self.RESOURCES['coffee']}g, Money: ${self.money:.2f}, Chocolatte: {self.RESOURCES['chocolate']}g"
+        return f"\nCurrent resources:\n\nWater: {self.RESOURCES['water']}ml, Milk: {self.RESOURCES['milk']}ml, Coffee: {self.RESOURCES['coffee']}g, Chocolatte: {self.RESOURCES['chocolate']}g, Money: ${self.money:.2f}"
 
     def work(self):
         print(logo)

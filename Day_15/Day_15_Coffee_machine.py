@@ -116,13 +116,13 @@ class CoffeeMachine:
         print(self.display_menu())
         while True:
             choice = input(
-                "What would you like? (type 'exit' to stop)\n: ").lower()
+                "What would you like? (type 'off' to stop)\n: ").lower()
             if choice == "report":
                 print(self.report())
             elif choice in CoffeeMachine.MENU.keys():
                 result = self.make_coffee(choice)
                 print(result)
-            elif choice == "exit":
+            elif choice == "off":
                 break
             else:
                 print("Invalid input. Please choose a valid option.")

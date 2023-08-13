@@ -53,8 +53,6 @@ class CoffeeMachine:
     }
 
     def display_menu(self):
-        # drink_options = ", ".join(self.MENU.keys())
-        # return f"Welcome to the coffee machine!\nWhat would you like?\n{drink_options}\n"
         message = f"Welcome to the coffee machine!\n\nWhat would you like?\n"
         for drink, options in self.MENU.items():
             message += f"{drink}: ${options['cost']}\n"
@@ -78,10 +76,6 @@ class CoffeeMachine:
             if self.RESOURCES[ingredient] < quantity:
                 return False
         return True
-
-    def clear_terminal(self):
-        os.system('cls')  # for Windows systems
-        
 
     def process_coins(self):
         def get_valid_input(prompt):
@@ -118,7 +112,7 @@ class CoffeeMachine:
             return "Sorry, not enough resources to make the drink."
 
     def report(self):
-        return f"Water: {self.RESOURCES['water']}ml, Milk: {self.RESOURCES['milk']}ml, Coffee: {self.RESOURCES['coffee']}g, Money: ${self.money:.2f}"
+        return f"\nCurrent resources:\n\nWater: {self.RESOURCES['water']}ml, Milk: {self.RESOURCES['milk']}ml, Coffee: {self.RESOURCES['coffee']}g, Money: ${self.money:.2f}, Chocolatte: {self.RESOURCES['chocolate']}g"
 
     def work(self):
         print(logo)

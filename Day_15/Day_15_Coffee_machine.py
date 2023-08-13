@@ -133,13 +133,4 @@ class CoffeeMachine:
 coffee_machine = CoffeeMachine()
 
 coffee_machine.work()
-# while True:
-#     choice = input("What would you like?\nespresso - 1.50$\nlatte - 2.50$\ncappuccino - 3.00$\n: ").lower()
 
-#     if choice == "report":
-#         print(coffee_machine.report())
-#     elif choice in ["espresso", "latte", "cappuccino"]:
-#         result = coffee_machine.make_coffee(choice)
-#         print(result)
-#     else:
-#         print("Invalid input. Please choose a valid option.")

@@ -1,19 +1,19 @@
 from turtle import Turtle, Screen
 import random
 import time
-screen = Screen()
-screen.setup(width=600, height=600)
-screen.bgcolor("black")
-screen.title("My Snake Game")
+
+MOVE_DISTANCE = 20
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
 
 
 class Snake:
     def __init__(self):
-        self.screen = Screen()
-        self.screen.tracer(0)
         self.segments = []
         self.create_snake()
-        self.game_is_on = True
+        self.head = self.segments[0]
 
     def create_snake(self):
         for i in range(3):
@@ -24,29 +24,27 @@ class Snake:
             self.segments.append(new_segment)
 
     def move(self):
-        self.screen.update()
-        time.sleep(0.2)
         for seg_num in range(len(self.segments) - 1, 0, -1):
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
-        self.segments[0].forward(20)
+        self.head.forward(MOVE_DISTANCE)
 
     def up(self):
-        if self.segments[0].heading() != 270:
-            self.segments[0].setheading(90)
+        if self.head.heading() != DOWN:
+            self.head.setheading(UP)
 
     def down(self):
-        if self.segments[0].heading() != 90:
-            self.segments[0].setheading(270)
+        if self.head.heading() != UP:
+            self.head.setheading(DOWN)
 
     def left(self):
-        if self.segments[0].heading() != 0:
-            self.segments[0].setheading(180)
+        if self.head.heading() != RIGHT:
+            self.head.setheading(LEFT)
 
     def right(self):
-        if self.segments[0].heading() != 180:
-            self.segments[0].setheading(0)
+        if self.head.heading() != LEFT:
+            self.head.setheading(RIGHT)
 
     def reset(self):
         for seg in self.segments:
@@ -60,32 +58,21 @@ class Snake:
         new_segment.penup()
         self.segments.append(new_segment)
 
-    def create_food(self):
-        food = Turtle("square")
-        food.color("red")
-        food.penup()
-        food.goto(random.randint(-280, 280), random.randint(-280, 280))
-        self.food = food
-        self.screen.update()
-
-    def play(self):
-        while self.game_is_on:
-            self.move()
-            self.screen.listen()
-            self.screen.onkey(self.up, "w")
-            self.screen.onkey(self.up, "Up")
-            self.screen.onkey(self.down, "s")
-            self.screen.onkey(self.down, "Down")
-            self.screen.onkey(self.left, "a")
-            self.screen.onkey(self.left, "Left")
-            self.screen.onkey(self.right, "d")
-            self.screen.onkey(self.right, "Right")
-            self.screen.onkey(self.reset, "r")
-            self.screen.onkey(self.extend, "e")
-
-
-game = Snake()
-game.play()
-screen.listen()
-
-screen.exitonclick()
+    # def play(self):
+    #     while self.game_is_on:
+    #         self.move()
+            # self.screen.listen()
+            # self.screen.onkey(self.up, "w")
+            # self.screen.onkey(self.up, "W")
+            # self.screen.onkey(self.up, "Up")
+            # self.screen.onkey(self.down, "s")
+            # self.screen.onkey(self.down, "S")
+            # self.screen.onkey(self.down, "Down")
+            # self.screen.onkey(self.left, "a")
+            # self.screen.onkey(self.left, "A")
+            # self.screen.onkey(self.left, "Left")
+            # self.screen.onkey(self.right, "d")
+            # self.screen.onkey(self.right, "D")
+            # self.screen.onkey(self.right, "Right")
+            # self.screen.onkey(self.reset, "r")
+            # self.screen.onkey(self.extend, "e")

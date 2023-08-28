@@ -7,18 +7,20 @@ UP = 90
 DOWN = 270
 LEFT = 180
 RIGHT = 0
-
+SNAKE_COLOR = "white"
+SNAKE_SHAPE = "square"
 
 class Snake:
     def __init__(self):
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
+        self.head.color('green')
 
     def create_snake(self):
         for i in range(3):
-            new_segment = Turtle(shape="square")
-            new_segment.color("white")
+            new_segment = Turtle(shape=f"{SNAKE_SHAPE}")
+            new_segment.color(f"{SNAKE_COLOR}")
             new_segment.penup()
             new_segment.goto(x=(-20 * i), y=0)
             self.segments.append(new_segment)
@@ -46,33 +48,8 @@ class Snake:
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
 
-    def reset(self):
-        for seg in self.segments:
-            seg.goto(0, 0)
-        self.segments.clear()
-        self.create_snake()
-
     def extend(self):
         new_segment = Turtle("square")
         new_segment.color("white")
         new_segment.penup()
         self.segments.append(new_segment)
-
-    # def play(self):
-    #     while self.game_is_on:
-    #         self.move()
-            # self.screen.listen()
-            # self.screen.onkey(self.up, "w")
-            # self.screen.onkey(self.up, "W")
-            # self.screen.onkey(self.up, "Up")
-            # self.screen.onkey(self.down, "s")
-            # self.screen.onkey(self.down, "S")
-            # self.screen.onkey(self.down, "Down")
-            # self.screen.onkey(self.left, "a")
-            # self.screen.onkey(self.left, "A")
-            # self.screen.onkey(self.left, "Left")
-            # self.screen.onkey(self.right, "d")
-            # self.screen.onkey(self.right, "D")
-            # self.screen.onkey(self.right, "Right")
-            # self.screen.onkey(self.reset, "r")
-            # self.screen.onkey(self.extend, "e")

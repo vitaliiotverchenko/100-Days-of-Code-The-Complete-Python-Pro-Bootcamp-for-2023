@@ -17,17 +17,16 @@ screen.bgcolor(f"{BACKGROUND_COLOR}")
 screen.title(f"{TITLE}")
 right_paddle = Paddle(RIGHT_PADDLE_POSITION)
 left_paddle = Paddle(LEFT_PADDLE_POSITION)
-# screen.tracer(0)
 
 def check_keys():
     if keyboard.is_pressed('w'):
-        right_paddle.go_up()
-    if keyboard.is_pressed('s'):
-        right_paddle.go_down()
-    if keyboard.is_pressed('up'):
         left_paddle.go_up()
-    if keyboard.is_pressed('down'):
+    if keyboard.is_pressed('s'):
         left_paddle.go_down()
+    if keyboard.is_pressed('up'):
+        right_paddle.go_up()
+    if keyboard.is_pressed('down'):
+        right_paddle.go_down()
 
 
 game_is_on = True

@@ -1,7 +1,6 @@
 from turtle import Turtle, Screen
 from paddle import Paddle
 import keyboard
-# classic arcade Pong game
 
 # Constants
 WINDOW_WIDTH = 800
@@ -17,7 +16,10 @@ screen.bgcolor(f"{BACKGROUND_COLOR}")
 screen.title(f"{TITLE}")
 right_paddle = Paddle(RIGHT_PADDLE_POSITION)
 left_paddle = Paddle(LEFT_PADDLE_POSITION)
+# screen.tracer(0)
 
+
+# Functions
 def check_keys():
     if keyboard.is_pressed('w'):
         left_paddle.go_up()

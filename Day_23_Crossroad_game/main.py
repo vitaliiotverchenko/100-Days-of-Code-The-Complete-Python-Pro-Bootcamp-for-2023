@@ -5,14 +5,14 @@ from car_manager import CarManager
 from scoreboard import Scoreboard
 from car_manager import CarManager
 
-#Constants
+# Constants
 DISTANCE_TO_CRASH = 18
-SCREEN_WIDHT = 600
+SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
 
-#Screen setup
+# Screen setup
 screen = Screen()
-screen.setup(width=SCREEN_WIDHT, height=SCREEN_HEIGHT)
+screen.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
 screen.tracer(0)
 
 scoreboard = Scoreboard()
@@ -22,12 +22,11 @@ cars = CarManager()
 screen.listen()
 screen.onkey(turtle.move, "W")
 screen.onkey(turtle.move, "w")
+
+
 def disable_key_handlers():
     screen.onkey(None, "w")
     screen.onkey(None, "W")
-
-
-
 
 
 def play_game():
@@ -43,11 +42,12 @@ def play_game():
             scoreboard.increase_level()
         for car in cars.all_cars:
             if turtle.distance(car) < DISTANCE_TO_CRASH:
-                turtle.collisiion()
+                turtle.collision()
                 disable_key_handlers()
                 scoreboard.game_over()
-                cars.collisiion()
+                cars.collision()
                 game_is_on = False
+
 
 play_game()
 screen.exitonclick()

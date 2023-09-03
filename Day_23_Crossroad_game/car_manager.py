@@ -39,7 +39,7 @@ class CarManager(Turtle):
             car.hideturtle()
         self.all_cars.clear()
         self.car_speed += MOVE_INCREMENT
-    
-    def collisiion(self):
+
+    def collision(self):
         self.car_speed = 0
         self.live_turtle = False

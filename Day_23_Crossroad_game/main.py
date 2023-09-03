@@ -47,8 +47,7 @@ def play_game():
                 disable_key_handlers()
                 scoreboard.game_over()
                 cars.collisiion()
-                # time.sleep(4)       
-                # game_is_on = False
-                # turtle.reset_position()
+                game_is_on = False
 
 play_game()
+screen.exitonclick()

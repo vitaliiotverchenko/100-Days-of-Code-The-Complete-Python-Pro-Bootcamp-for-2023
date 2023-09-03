@@ -20,3 +20,7 @@ class Player(Turtle):
     def reset_position(self):
         self.goto(STARTING_POSITION)
     
+    def collisiion(self):
+        self.shape('circle')
+        
+    

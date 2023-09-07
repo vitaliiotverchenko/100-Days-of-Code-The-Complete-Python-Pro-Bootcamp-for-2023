@@ -9,7 +9,7 @@ class Scoreboard(Turtle):
     def __init__(self):
         super().__init__()
         self.score = 0
-        with open("C:\\Users\\38096\Desktop\\100DaysOfCodeChallenge\\100-Days-of-Code-The-Complete-Python-Pro-Bootcamp-for-2023\\Day_20_Snake_game\\data.txt", mode='r') as data:
+        with open("Day_20_Snake_game\data.txt", mode='r') as data:
             self.high_score = int(data.read())
         self.color(f'{TEXT_COLOR}')
         self.penup()

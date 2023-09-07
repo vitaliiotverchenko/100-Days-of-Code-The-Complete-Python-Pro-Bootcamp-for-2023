@@ -36,7 +36,7 @@ class Scoreboard(Turtle):
     def reset(self):
         if self.score > self.high_score:
             self.high_score = self.score
-        with open("C:\\Users\\38096\Desktop\\100DaysOfCodeChallenge\\100-Days-of-Code-The-Complete-Python-Pro-Bootcamp-for-2023\\Day_20_Snake_game\\data.txt", mode='w') as storage:
-            storage.write(f"{self.high_score}")
+            with open("C:\\Users\\38096\Desktop\\100DaysOfCodeChallenge\\100-Days-of-Code-The-Complete-Python-Pro-Bootcamp-for-2023\\Day_20_Snake_game\\data.txt", mode='w') as storage:
+                storage.write(f"{self.high_score}")
         self.score = 0
         self.update_score()

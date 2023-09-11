@@ -14,8 +14,3 @@ squirells_dataframe.to_csv("Day_25_Pandas/squirells_data_dataframe.csv")
 
 
 
-# combined_data = pandas.concat(my_squirells, ignore_index=True)
-# combined_data.to_csv("Day_25_Pandas/combined_data.csv")
-
-
-

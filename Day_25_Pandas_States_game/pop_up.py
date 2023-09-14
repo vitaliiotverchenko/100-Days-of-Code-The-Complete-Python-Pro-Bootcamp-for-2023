@@ -15,3 +15,8 @@ class Pop_up(Turtle):
 
     def upgrade_counter(self):
         self.counter += 1
+
+    def already_used(self):
+        message = 'This state has already been used \n Push the "OK" button to continue, "Cancel" to exit '
+        self.screen.textinput(
+            title="Inforamtion Pop-up!", prompt=f"{message}").title()

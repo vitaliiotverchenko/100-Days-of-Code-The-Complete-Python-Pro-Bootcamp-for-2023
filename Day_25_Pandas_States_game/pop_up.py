@@ -13,5 +13,5 @@ class Pop_up(Turtle):
                 title=f"{self.counter}/50 States Correct", prompt="What's another state's name?").title()
             return answer_state
 
-    def correct_answer(self):
+    def upgrade_counter(self):
         self.counter += 1

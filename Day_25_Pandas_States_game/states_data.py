@@ -18,3 +18,6 @@ class Data_states():
         x = self.dict_of_states[state]["x"]
         y = self.dict_of_states[state]["y"]
         return x, y
+
+    def return_list_of_states(self):
+        return self.raw_data["state"].to_list()

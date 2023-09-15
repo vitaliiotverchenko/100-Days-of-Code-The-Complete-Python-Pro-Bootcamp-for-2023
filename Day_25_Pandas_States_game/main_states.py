@@ -17,7 +17,7 @@ used_states = set()
 
 def game():
     game_is_on = True
-    while game_is_on:
+    while game_is_on and len(used_states) < 50:
         answer = pop_up.get_attempt()
         if answer == "Exit":
             game_is_on = False

@@ -22,10 +22,9 @@ def action():
 button = Button(text="Click Me", command=action)
 button.grid(column=1, row=1)
 
-#New button
+# New button
 button = Button(text="New Button")
 button.grid(column=2, row=0)
-
 
 
 # Entries

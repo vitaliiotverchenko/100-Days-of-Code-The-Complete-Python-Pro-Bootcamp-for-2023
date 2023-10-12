@@ -65,6 +65,32 @@ def save_password():
         website_entry.focus()
 
 
+def search_password():
+    website = website_entry.get()
+    try:
+        with open("Day_29_Password_generator/data.json", 'r') as data:
+            data_dict = json.load(data)
+            if website in data_dict:
+                email = data_dict[website]["email"]
+                password = data_dict[website]["password"]
+                messagebox.showinfo(
+                    title=website, message=f"Email: {email}\nPassword: {password}")
+            else:
+                messagebox.showerror(
+                    title="Oops", message=f"No details for {website} exists.")
+    except FileNotFoundError:
+        messagebox.showerror(
+            title="Oops", message="No data file found.")
+    finally:
+        website_entry.delete(0, tk.END)
+        password_entry.delete(0, tk.END)
+        website_entry.focus()
+        return
+    # ---------------------------- SAVE PASSWORD ------------------------------- #
+    # ---------------------------- UI SETUP ------------------------------- #
+    # ---------------------------- PASSWORD GENERATOR -------------------------------
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 window = tk.Tk()
 window.title("Password manager")
@@ -94,7 +120,7 @@ password_label.grid(column=0, row=3)
 password_label.config(padx=10, pady=10)
 
 # Entry forms
-website_entry = tk.Entry(width=34, font=STANDARD_FONT)
+website_entry = tk.Entry(width=20, font=STANDARD_FONT)
 website_entry.grid(column=1, row=1,  columnspan=2, sticky="w")
 website_entry.focus()
 
@@ -106,7 +132,11 @@ password_entry = tk.Entry(width=20, font=STANDARD_FONT)
 password_entry.grid(column=1, row=3, sticky="w")
 
 
-# Buttons
+# BUTTONS
+search_button = tk.Button(
+    text="Search", width=16, font=STANDARD_FONT, command=search_password)
+search_button.grid(column=2, row=1)
+
 generate_password_button = tk.Button(
     text="Generate Password", font=STANDARD_FONT, command=generate_password)
 generate_password_button.grid(column=2, row=3)

@@ -2,6 +2,7 @@ import tkinter as tk
 import random as rd
 import string
 import pyperclip
+import json
 from tkinter import messagebox
 
 
@@ -31,25 +32,40 @@ def save_password():
     website = website_entry.get()
     email = email_username_entry.get()
     password = password_entry.get()
+    new_data = {
+        website: {
+            "email": email,
+            "password": password,
+        }
+    }
 
     if len(website) == 0 or len(password) == 0 or len(email) == 0:
         messagebox.showerror(
             title="Oops", message="Please make sure you haven't left any fields empty.")
         return
-
-    is_ok = messagebox.askokcancel(
-        title=website, message=f"These are details entered: \nEmail: {email} \nPassword: {password} \nIs it ok to save?")
-    if is_ok:
-        with open("Day_29_Password_generator\data.txt", 'a+', encoding='utf-8') as data:
-            data.write(
-                f"{website} | {email} | {password}\n")
+    try:
+        with open("Day_29_Password_generator\data.json", 'r') as data:
+            # Try to load existing data from the file
+            data_dict = json.load(data)
+            data_dict.update(new_data)
+    except FileNotFoundError:
+        # Create the file if it doesn't exist
+        with open("Day_29_Password_generator/data.json", 'w') as data:
+            # Save the new data
+            json.dump(new_data, data, indent=4)
+    else:
+        # Open the file in write mode to save the updated data
+        with open("Day_29_Password_generator/data.json", 'w') as data:
+            # Save the updated data
+            json.dump(data_dict, data, indent=4)
+    finally:
+        # Clear the entry fields and set focus to website_entry
         website_entry.delete(0, tk.END)
         password_entry.delete(0, tk.END)
         website_entry.focus()
 
+
 # ---------------------------- UI SETUP ------------------------------- #
-
-
 window = tk.Tk()
 window.title("Password manager")
 window.minsize(width=600, height=420)

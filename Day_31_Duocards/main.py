@@ -1,7 +1,7 @@
 import tkinter as tk
 import pandas as pd
 import random
-
+import time
 
 BACKGROUND_COLOR = "#B1DDC6"
 CARD_FRONT_IMAGE = "Day_31_Duocards/images/card_front.png"
@@ -20,9 +20,32 @@ dictionary = data_frame.to_dict(orient="records")
 
 
 def next_card():
+    canvas.itemconfig(canvas_image, image=card_front)
     current_card = random.choice(dictionary)
-    canvas.itemconfig(language_label, text="English")
-    canvas.itemconfig(word_label, text=current_card["English"])
+    canvas.itemconfig(language_label, text="Russian", fill="black")
+    canvas.itemconfig(timer_label, fill="black")
+
+    canvas.itemconfig(word_label, text=current_card
+                      ["Russian"], fill="black")
+
+    def english_word():
+        canvas.itemconfig(language_label, text="English", fill="white")
+        canvas.itemconfig(
+            word_label, text=current_card["English"], fill="white")
+        canvas.itemconfig(timer_label, fill="white")
+
+    # timer counting time from 5 to 0
+    def count_down(count):
+        canvas.itemconfig(timer_label, text=count)
+        if count > 0:
+            window.after(1000, count_down, count - 1)
+        else:
+            # change card image to the card_back.png
+            canvas.itemconfig(canvas_image, image=card_back)
+            english_word()
+    count_down(5)
+    # after 5 seconds flip the card
+    # window.after(5000, func=russian_translation)
 
 
 # ----------------- UI SETUP ------------------
@@ -34,11 +57,14 @@ window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
 canvas = tk.Canvas(width=800, height=526,
                    bg=BACKGROUND_COLOR, highlightthickness=0)
 card_front = tk.PhotoImage(file=CARD_FRONT_IMAGE)
-canvas.create_image(400, 263, image=card_front)
+card_back = tk.PhotoImage(file=CARD_BACK_IMAGE)
+canvas_image = canvas.create_image(400, 263, image=card_front)
 language_label = canvas.create_text(
     400, 150, text='Language', font=("Arial", 40, "italic"))
 word_label = canvas.create_text(
     400, 263, text='Word', font=("Arial", 60, "bold"))
+timer_label = canvas.create_text(
+    400, 400, text='5', font=("Arial", 40, "italic"))
 canvas.grid(column=0, row=0, columnspan=2)
 
 

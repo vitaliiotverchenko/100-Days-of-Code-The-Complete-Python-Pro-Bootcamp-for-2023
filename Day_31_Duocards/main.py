@@ -10,15 +10,14 @@ RIGHT_BUTTON_IMAGE = "Day_31_Duocards/images/right.png"
 WRONG_BUTTON_IMAGE = "Day_31_Duocards/images/wrong.png"
 CURRENT_LANGUAGE = "English"
 WORD = 'Start'
-# Time in miliseconds between flips of the card
-TIME_TO_WAIT = 5000
 current_card = {}
 to_learn = {}
+# Time in miliseconds between flips of the card
+TIME_TO_WAIT = 2500
 
 
 # ------------------ READ CSV DATA --------------
 # try to open words_to_learn.csv if it exists
-
 try:
     original_data = pd.read_csv("Day_31_Duocards/words_to_learn.csv")
 except FileNotFoundError:
@@ -39,7 +38,7 @@ def next_card():
     canvas.itemconfig(language_label, text="Russian", fill="black")
     canvas.itemconfig(word_label, text=current_card
                       ["Russian"], fill="black")
-    flip_timer = window.after(5000, func=flip_card)
+    flip_timer = window.after(TIME_TO_WAIT, func=flip_card)
 
 
 def is_known():
@@ -50,8 +49,6 @@ def is_known():
 
 
 def flip_card():
-    # global  flip_timer
-    # window.after_cancel(flip_timer)
     canvas.itemconfig(canvas_image, image=card_back)
     canvas.itemconfig(language_label, text="English", fill="white")
     canvas.itemconfig(
@@ -63,10 +60,7 @@ window = tk.Tk()
 window.title("Duocards")
 window.minsize(width=900, height=626)
 window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
-
-
 flip_timer = window.after(TIME_TO_WAIT, func=flip_card)
-
 canvas = tk.Canvas(width=800, height=526,
                    bg=BACKGROUND_COLOR, highlightthickness=0)
 card_front = tk.PhotoImage(file=CARD_FRONT_IMAGE)

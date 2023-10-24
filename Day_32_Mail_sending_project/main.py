@@ -15,30 +15,39 @@ import random
 
 MY_EMAIL = 'vixenbqlab@gmail.com'
 PASSWORD = 'yoambfqzsmtjlmxp'
-
-# make datetime object
-now = dt.datetime.now()
+LETTER_TEMPLATES_DIR = "Day_32_Mail_sending_project/letter_templates/"
 
 
-# open csv file and check if today is birthday
-birthdays_df = pd.read_csv('Day_32_Mail_sending_project\\birthdays.csv')
-birthdays_dict = birthdays_df.to_dict(orient='records')
+def send_birthday_letter(email, letter_content):
+    with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
+        connection.starttls()
+        connection.login(user=MY_EMAIL, password=PASSWORD)
+        connection.sendmail(from_addr=MY_EMAIL,
+                            to_addrs=email,
+                            msg=f'Subject: Happy Birthday!\n\n{letter_content}')
 
-# print(birthdays_dict)
-for person in birthdays_dict:
-    if person['month'] == now.month and person['day'] == now.day:
-        print(f'Today is {person["name"]} birthday! Sending a letter!')
-        random_letter = random.randint(1, 3)
-        try:
-            with open(f"Day_32_Mail_sending_project\letter_templates\letter_{random_letter}.txt", mode='r') as file:
-                letter = file.read()
-                letter = letter.replace('[NAME]', person['name'])
 
-            with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
-                connection.starttls()
-                connection.login(user=MY_EMAIL, password=PASSWORD)
-                connection.sendmail(from_addr=MY_EMAIL,
-                                    to_addrs=person['email'],
-                                    msg=f'Subject:Happy Birthday!\n\n{letter}')
-        except FileNotFoundError:
-            print('File not found')
+def main():
+    # make datetime object
+    now = dt.datetime.now()
+    try:
+        birthdays_df = pd.read_csv('Day_32_Mail_sending_project/birthdays.csv')
+        birthdays_dict = birthdays_df.to_dict(orient='records')
+    except FileNotFoundError:
+        print('File birthdays.csv not found!')
+
+    for person in birthdays_dict:
+        if person['month'] == now.month and person['day'] == now.day:
+            print(f"Today is {person['name']}'s birthday! Sending a letter!")
+            random_letter = random.randint(1, 3)
+            try:
+                with open(f"{LETTER_TEMPLATES_DIR}letter_{random_letter}.txt", mode='r') as file:
+                    letter = file.read()
+                    letter = letter.replace('[NAME]', person['name'])
+                    send_birthday_letter(person['email'], letter)
+            except FileNotFoundError:
+                print('File not found')
+
+
+if __name__ == "__main__":
+    main()
